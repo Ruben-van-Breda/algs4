@@ -26,7 +26,8 @@ public class Assignment_One {
         // question4 q4 = new question4();
         // question5 q5 = new question5();
         // q5 que5 = new q5();
-        question6 q6 = new question6();
+        // question6 q6 = new question6();
+        q6 que6 = new q6();
 
     }
 
