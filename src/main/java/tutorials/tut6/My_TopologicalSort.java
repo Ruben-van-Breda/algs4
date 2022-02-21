@@ -7,9 +7,13 @@ import edu.princeton.cs.algs4.Digraph;
 import edu.princeton.cs.algs4.Graph;
 import edu.princeton.cs.algs4.Queue;
 
-class My_TopologicalSort {
+public class My_TopologicalSort {
 
     static Queue<Integer> Q = new Queue<Integer>();
+
+    My_TopologicalSort() {
+
+    }
 
     public My_TopologicalSort(Digraph g) {
 
