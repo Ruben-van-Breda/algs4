@@ -23,11 +23,11 @@ public class Assignment_One {
         // Q3();
         // Q4();
         // question3 q3 = new question3();
-        // question4 q4 = new question4();
+        question4 q4 = new question4();
         // question5 q5 = new question5();
         // q5 que5 = new q5();
         // question6 q6 = new question6();
-        q6 que6 = new q6();
+        // q6 que6 = new q6();
 
     }
 
@@ -71,16 +71,17 @@ public class Assignment_One {
 
     public static void Q3() {
 
-        Graph g = new Graph(3);
+        Digraph g = new Digraph(4);
 
         g.addEdge(0, 1);
         g.addEdge(0, 2);
+        g.addEdge(1, 3);
 
         System.out.println(TraverseGraph(g).toString());
 
     }
 
-    public static ArrayList<EdgeSet> TraverseGraph(Graph g) {
+    public static ArrayList<EdgeSet> TraverseGraph(Digraph g) {
         ArrayList<EdgeSet> F = new ArrayList<EdgeSet>();
         boolean[] explored = new boolean[g.V()];
 
@@ -99,7 +100,7 @@ public class Assignment_One {
         return F;
     }
 
-    public static ArrayList<EdgeSet> TFV(Graph g, int u, boolean[] explored) {
+    public static ArrayList<EdgeSet> TFV(Digraph g, int u, boolean[] explored) {
         explored[u] = true;
         ArrayList<EdgeSet> T = new ArrayList<EdgeSet>();
 

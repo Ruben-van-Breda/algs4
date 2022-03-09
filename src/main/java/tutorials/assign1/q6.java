@@ -3,11 +3,14 @@ package tutorials.assign1;
 import java.util.ArrayList;
 
 import edu.princeton.cs.algs4.Digraph;
+import edu.princeton.cs.algs4.DirectedEdge;
+import edu.princeton.cs.algs4.EdgeWeightedDigraph;
+import edu.princeton.cs.algs4.EdgeWeightedGraph;
 import edu.princeton.cs.algs4.Queue;
 import edu.princeton.cs.algs4.Stack;
 
 public class q6 {
-    private static Digraph g;
+    private static EdgeWeightedDigraph g;
     private static ArrayList<String> paths;
     private static Stack<Integer> stack;
     private static final int INFINITY = Integer.MAX_VALUE;
@@ -21,29 +24,29 @@ public class q6 {
         findShortestXPaths(g, 0, 4, 2);
     }
 
-    static void findShortestXPaths(Digraph g, int source, int destination, int num_choices) {
+    static void findShortestXPaths(EdgeWeightedDigraph g, int source, int destination, int num_choices) {
         stack = new Stack<Integer>();
         paths = new ArrayList<String>();
         int counter = 0;
         double min = Double.MAX_VALUE;
 
-        for (int v : g.adj(source)) {
+        for (DirectedEdge v : g.adj(source)) {
 
-            BreadthFirstDirectedPaths(g, v);
+            BreadthFirstDirectedPaths(g, v.from());
             double distance = (distTo[destination]);
 
             if (marked[destination]) {
 
                 System.out.println(pathTo(destination) + " distTo "
                         + distance);
-                if (distance <= min) {
-                    paths.add(pathTo(destination) + " distance " + distance);
-                    min = distance;
-                    counter++;
-                    if (counter >= num_choices) {
+                // if (distance <= min) {
+                // paths.add(pathTo(destination) + " distance " + distance);
+                // min = distance;
+                // counter++;
+                // if (counter >= num_choices) {
 
-                    }
-                }
+                // }
+                // }
 
             }
         }
@@ -73,39 +76,40 @@ public class q6 {
 
     void createGraph() {
         int V = 5;
-        g = new Digraph(V);
-        g.addEdge(0, 1);
-        g.addEdge(0, 2);
-        g.addEdge(1, 2);
-        g.addEdge(2, 3);
-        g.addEdge(3, 4);
+        g = new EdgeWeightedDigraph(V);
+        g.addEdge(new DirectedEdge(0, 1, 1));
+        g.addEdge(new DirectedEdge(0, 2, 1));
+        g.addEdge(new DirectedEdge(1, 2, 1));
+        g.addEdge(new DirectedEdge(2, 3, 1));
+        g.addEdge(new DirectedEdge(3, 4, 1));
 
     }
 
-    public static void BreadthFirstDirectedPaths(Digraph G, int s) {
+    public static void BreadthFirstDirectedPaths(EdgeWeightedDigraph G, int s) {
         marked = new boolean[G.V()];
         distTo = new int[G.V()];
         edgeTo = new int[G.V()];
         for (int v = 0; v < G.V(); v++)
             distTo[v] = INFINITY;
 
-        bfs(G, s);
+        bfs(g, s);
     }
 
     // BFS from single source
-    private static void bfs(Digraph G, int s) {
-        Queue<Integer> q = new Queue<Integer>();
+    private static void bfs(EdgeWeightedDigraph G, int s) {
+        Queue<DirectedEdge> q = new Queue<DirectedEdge>();
         marked[s] = true;
         distTo[s] = 0;
-        q.enqueue(s);
+        q.enqueue(new DirectedEdge(s, s, 0));
         while (!q.isEmpty()) {
-            int v = q.dequeue();
-            for (int w : G.adj(v)) {
-                ;
-                if (!marked[w]) {
-                    edgeTo[w] = v;
-                    distTo[w] = distTo[v] + 1;
-                    marked[w] = true;
+            DirectedEdge v = q.dequeue();
+            System.out.println(" v " + v + " " + v.from());
+            for (DirectedEdge w : G.adj(v.from())) {
+                System.out.println(" w = " + w.toString());
+                if (!marked[w.from()]) {
+                    edgeTo[w.from()] = v.from();
+                    distTo[w.from()] = distTo[v.from()] + 1;
+                    marked[w.from()] = true;
                     q.enqueue(w);
                 }
             }
